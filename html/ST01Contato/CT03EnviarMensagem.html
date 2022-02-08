@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="https://livros.inoveteste.com.br/" />
+<title>CT03EnviarMensagem</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">CT03EnviarMensagem</td></tr>
+</thead><tbody>
+<!--Acessa o site-->
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<!--Acessa o menu Contato-->
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#menu-item-80 &gt; a &gt; span</td>
+	<td></td>
+</tr>
+<!--Preenche todos os campos do formulário-->
+<tr>
+	<td>type</td>
+	<td>name=your-name</td>
+	<td>Alice Sophia Koch</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=your-email</td>
+	<td>teste@gmail.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=your-subject</td>
+	<td>Qual o valor do livro impresso?</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=your-message</td>
+	<td>Gostaria de saber qual o valor do livro impresso + frete para o cep 00000-000</td>
+</tr>
+<!--Clica no botão enviar após preencher todos os campos obrigatórios-->
+<tr>
+	<td>click</td>
+	<td>css=input.wpcf7-form-control.wpcf7-submit</td>
+	<td></td>
+</tr>
+<!--Valida a mensagem de sucesso do envio da mensagem-->
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='wpcf7-f372-p24-o1']/form/div[2]</td>
+	<td>Agradecemos a sua mensagem. Responderemos em breve.</td>
+</tr>
+</tbody></table>
+</body>
+</html>
