@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using SeleniumWebDriver.Page_Object;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
@@ -9,6 +10,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Opera;
 using OpenQA.Selenium.Support.UI;
+using OpenQA.Selenium.Support.PageObjects;
 
 namespace ST01Contato {
 
@@ -22,6 +24,7 @@ namespace ST01Contato {
         [SetUp]
         public void SetupTest() {
             driver = new ChromeDriver();
+            driver.Manage().Window.Maximize();
             baseURL = "https://livros.inoveteste.com.br/";
             verificationErrors = new StringBuilder();
         }
@@ -42,13 +45,25 @@ namespace ST01Contato {
             driver.Navigate().GoToUrl(baseURL + "/contato/");
             // Acessa o menu Contato
             driver.FindElement(By.CssSelector("#menu-item-80 > a > span")).Click();
-            // Valida o layout da tela
+            // Valida o layout da tela            
+            // Sem Page Object
             Assert.AreEqual("Envie uma mensagem", driver.FindElement(By.CssSelector("h1")).Text);
-            Assert.IsTrue(IsElementPresent(By.Name("your-name")));
+            /*Assert.IsTrue(IsElementPresent(By.Name("your-name")));
             Assert.IsTrue(IsElementPresent(By.Name("your-email")));
             Assert.IsTrue(IsElementPresent(By.Name("your-subject")));
             Assert.IsTrue(IsElementPresent(By.Name("your-message")));
-            Assert.IsTrue(IsElementPresent(By.CssSelector("input.wpcf7-form-control.wpcf7-submit")));
+            Assert.IsTrue(IsElementPresent(By.CssSelector("input.wpcf7-form-control.wpcf7-submit")));*/
+
+            // Page Object
+            Contato contato = new Contato();
+            PageFactory.InitElements(driver, contato);
+
+            Assert.IsTrue(contato.Name.Enabled);
+            Assert.IsTrue(contato.Email.Enabled);
+            Assert.IsTrue(contato.Subject.Enabled);
+            Assert.IsTrue(contato.Message.Enabled);
+            Assert.IsTrue(contato.Submit.Enabled);
+
         }
         private bool IsElementPresent(By by) {
             try {

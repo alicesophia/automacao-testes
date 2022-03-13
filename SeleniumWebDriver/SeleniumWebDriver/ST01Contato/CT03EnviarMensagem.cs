@@ -22,6 +22,7 @@ namespace ST01Contato {
         [SetUp]
         public void SetupTest() {
             driver = new ChromeDriver();
+            driver.Manage().Window.Maximize();
             baseURL = "https://livros.inoveteste.com.br/";
             verificationErrors = new StringBuilder();
         }
