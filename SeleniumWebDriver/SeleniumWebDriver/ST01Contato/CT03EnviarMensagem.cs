@@ -13,13 +13,15 @@ namespace ST01Contato {
     [TestFixture]
     public class CT03EnviarMensagem {
         private IWebDriver driver;
+        private WebDriverWait wait;
         private StringBuilder verificationErrors;
         private string baseURL;
         private bool acceptNextAlert = true;
 
         [SetUp]
         public void SetupTest() {
-            driver = Comandos.GetLocalBrowser(driver, ConfigurationManager.AppSettings["browser"]);
+            driver = Comandos.GetLocalBrowser(driver, ConfigurationManager.AppSettings["browser"]);            
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
             baseURL = "https://livros.inoveteste.com.br/";
             verificationErrors = new StringBuilder();
         }
@@ -51,10 +53,11 @@ namespace ST01Contato {
             driver.FindElement(By.Name("your-message")).SendKeys("Gostaria de saber qual o valor do livro impresso + frete para o cep 00000-000");
             // Clica no botão enviar após preencher todos os campos obrigatórios
             driver.FindElement(By.CssSelector("input.wpcf7-form-control.wpcf7-submit")).Click();
-            // Valida a mensagem de sucesso do envio da mensagem
-            Thread.Sleep(5000);
+            // Valida a mensagem de sucesso do envio da mensagem          
+            wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.XPath("//div[@id='wpcf7-f372-p24-o1']/form/div[2]")));
             Assert.AreEqual("Agradecemos a sua mensagem. Responderemos em breve.", driver.FindElement(By.XPath("//div[@id='wpcf7-f372-p24-o1']/form/div[2]")).Text);
         }
+
         private bool IsElementPresent(By by) {
             try {
                 driver.FindElement(by);

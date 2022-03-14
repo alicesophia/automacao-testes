@@ -19,7 +19,7 @@ namespace SeleniumWebDriver {
                 driver = new FirefoxDriver();
             }
 
-            driver.Manage().Window.Maximize();
+            driver.Manage().Window.Maximize();            
 
             return driver;
 

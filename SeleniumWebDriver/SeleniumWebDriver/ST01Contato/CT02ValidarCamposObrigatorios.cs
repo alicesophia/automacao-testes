@@ -18,8 +18,9 @@ namespace ST01Contato {
         private bool acceptNextAlert = true;
 
         [SetUp]
-        public void SetupTest() {
+        public void SetupTest() {            
             driver = Comandos.GetLocalBrowser(driver, ConfigurationManager.AppSettings["browser"]);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
             baseURL = "https://livros.inoveteste.com.br/";
             verificationErrors = new StringBuilder();
         }
@@ -41,8 +42,7 @@ namespace ST01Contato {
             // Acessa o menu Contato
             driver.FindElement(By.CssSelector("#menu-item-80 > a > span")).Click();
             driver.FindElement(By.CssSelector("input.wpcf7-form-control.wpcf7-submit")).Click();
-            // Valida as mensagens de crítica dos campos obrigatórios
-            Thread.Sleep(5000);
+            // Valida as mensagens de crítica dos campos obrigatórios            
             Assert.AreEqual("O campo é obrigatório.", driver.FindElement(By.CssSelector("span.wpcf7-not-valid-tip")).Text);
             Assert.AreEqual("O campo é obrigatório.", driver.FindElement(By.CssSelector("span.wpcf7-form-control-wrap.your-email > span.wpcf7-not-valid-tip")).Text);
             Assert.AreEqual("O campo é obrigatório.", driver.FindElement(By.CssSelector("span.wpcf7-form-control-wrap.your-subject > span.wpcf7-not-valid-tip")).Text);

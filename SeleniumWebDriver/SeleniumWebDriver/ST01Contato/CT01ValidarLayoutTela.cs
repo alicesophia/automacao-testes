@@ -22,6 +22,7 @@ namespace ST01Contato {
         [SetUp]
         public void SetupTest() {
             driver = Comandos.GetLocalBrowser(driver, ConfigurationManager.AppSettings["browser"]);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
             baseURL = "https://livros.inoveteste.com.br/";
             verificationErrors = new StringBuilder();
         }
