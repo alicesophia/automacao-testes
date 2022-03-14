@@ -7,6 +7,7 @@ using SeleniumWebDriver;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using SeleniumWebDriver;
 
 namespace ST01Contato {
 
@@ -14,6 +15,7 @@ namespace ST01Contato {
     public class CT03EnviarMensagem {
         private IWebDriver driver;
         private WebDriverWait wait;
+        private CT01ValidarLayoutTela ct01;
         private StringBuilder verificationErrors;
         private string baseURL;
         private bool acceptNextAlert = true;
@@ -24,6 +26,7 @@ namespace ST01Contato {
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
             baseURL = "https://livros.inoveteste.com.br/";
             verificationErrors = new StringBuilder();
+            ct01 = new CT01ValidarLayoutTela();
         }
 
         [TearDown]
@@ -38,6 +41,12 @@ namespace ST01Contato {
 
         [Test]
         public void TheCT03EnviarMensagemTest() {
+
+            // Pré Requisito: Validar layout da tela
+            ct01.SetupTest();
+            ct01.TheCT01ValidarLayoutTelaTest();
+            ct01.TeardownTest();
+
             // Acessa o site
             driver.Navigate().GoToUrl(baseURL + "/contato/");
             // Acessa o menu Contato
@@ -56,6 +65,7 @@ namespace ST01Contato {
             // Valida a mensagem de sucesso do envio da mensagem          
             wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.XPath("//div[@id='wpcf7-f372-p24-o1']/form/div[2]")));
             Assert.AreEqual("Agradecemos a sua mensagem. Responderemos em breve.", driver.FindElement(By.XPath("//div[@id='wpcf7-f372-p24-o1']/form/div[2]")).Text);
+
         }
 
         private bool IsElementPresent(By by) {
