@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Configuration;
 using System.Threading;
 using SeleniumWebDriver;
 using SeleniumWebDriver.Page_Object;
@@ -20,7 +21,7 @@ namespace ST01Contato {
 
         [SetUp]
         public void SetupTest() {
-            driver = Comandos.GetLocalBrowser(driver, "Chrome");
+            driver = Comandos.GetLocalBrowser(driver, ConfigurationManager.AppSettings["browser"]);
             baseURL = "https://livros.inoveteste.com.br/";
             verificationErrors = new StringBuilder();
         }
