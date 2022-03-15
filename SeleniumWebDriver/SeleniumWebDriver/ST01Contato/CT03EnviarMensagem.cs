@@ -22,7 +22,7 @@ namespace ST01Contato {
 
         [SetUp]
         public void SetupTest() {
-            driver = Comandos.GetLocalBrowser(driver, ConfigurationManager.AppSettings["browser"]);            
+            driver = Comandos.GetRemoteBrowser(driver, ConfigurationManager.AppSettings["browser"], "node_ip/wd/hub");
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
             baseURL = "https://livros.inoveteste.com.br/";
             verificationErrors = new StringBuilder();

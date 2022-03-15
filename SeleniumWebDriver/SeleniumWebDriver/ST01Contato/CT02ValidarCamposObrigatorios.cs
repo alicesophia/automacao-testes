@@ -18,8 +18,8 @@ namespace ST01Contato {
         private bool acceptNextAlert = true;
 
         [SetUp]
-        public void SetupTest() {            
-            driver = Comandos.GetLocalBrowser(driver, ConfigurationManager.AppSettings["browser"]);
+        public void SetupTest() {
+            driver = Comandos.GetRemoteBrowser(driver, ConfigurationManager.AppSettings["browser"], "node_ip/wd/hub");
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
             baseURL = "https://livros.inoveteste.com.br/";
             verificationErrors = new StringBuilder();
