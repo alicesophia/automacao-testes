@@ -21,8 +21,7 @@ namespace ST01Contato {
 
         [SetUp]
         public void SetupTest() {
-            driver = Comandos.GetRemoteBrowser(driver, ConfigurationManager.AppSettings["browser"], "node_ip/wd/hub");
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
+            driver = Comandos.GetRemoteBrowser(driver, ConfigurationManager.AppSettings["browser"], "http://localhost:4444/wd/hub");
             baseURL = "https://livros.inoveteste.com.br/";
             verificationErrors = new StringBuilder();
         }
@@ -43,7 +42,8 @@ namespace ST01Contato {
             driver.Navigate().GoToUrl(baseURL + "/contato/");
             // Acessa o menu Contato
             driver.FindElement(By.CssSelector("#menu-item-80 > a > span")).Click();
-            // Valida o layout da tela            
+            // Valida o layout da tela
+
             // Sem Page Object
             Assert.AreEqual("Envie uma mensagem", driver.FindElement(By.CssSelector("h1")).Text);
             /*Assert.IsTrue(IsElementPresent(By.Name("your-name")));

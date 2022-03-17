@@ -7,7 +7,6 @@ using SeleniumWebDriver;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using SeleniumWebDriver;
 
 namespace ST01Contato {
 
@@ -15,18 +14,18 @@ namespace ST01Contato {
     public class CT03EnviarMensagem {
         private IWebDriver driver;
         private WebDriverWait wait;
-        private CT01ValidarLayoutTela ct01;
+        //private CT01ValidarLayoutTela ct01;
         private StringBuilder verificationErrors;
         private string baseURL;
         private bool acceptNextAlert = true;
 
         [SetUp]
         public void SetupTest() {
-            driver = Comandos.GetRemoteBrowser(driver, ConfigurationManager.AppSettings["browser"], "node_ip/wd/hub");
+            driver = Comandos.GetRemoteBrowser(driver, ConfigurationManager.AppSettings["browser"], "http://localhost:4444/wd/hub");            
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
             baseURL = "https://livros.inoveteste.com.br/";
             verificationErrors = new StringBuilder();
-            ct01 = new CT01ValidarLayoutTela();
+            //ct01 = new CT01ValidarLayoutTela();
         }
 
         [TearDown]
@@ -43,9 +42,9 @@ namespace ST01Contato {
         public void TheCT03EnviarMensagemTest() {
 
             // Pré Requisito: Validar layout da tela
-            ct01.SetupTest();
-            ct01.TheCT01ValidarLayoutTelaTest();
-            ct01.TeardownTest();
+            //ct01.SetupTest();
+            //ct01.TheCT01ValidarLayoutTelaTest();
+            //ct01.TeardownTest();
 
             // Acessa o site
             driver.Navigate().GoToUrl(baseURL + "/contato/");
@@ -62,8 +61,8 @@ namespace ST01Contato {
             driver.FindElement(By.Name("your-message")).SendKeys("Gostaria de saber qual o valor do livro impresso + frete para o cep 00000-000");
             // Clica no botão enviar após preencher todos os campos obrigatórios
             driver.FindElement(By.CssSelector("input.wpcf7-form-control.wpcf7-submit")).Click();
-            // Valida a mensagem de sucesso do envio da mensagem          
-            wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.XPath("//div[@id='wpcf7-f372-p24-o1']/form/div[2]")));
+            // Valida a mensagem de sucesso do envio da mensagem
+            wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.XPath("//div[@id='wpcf7-f372-p24-o1']/form/div[2]")));            
             Assert.AreEqual("Agradecemos a sua mensagem. Responderemos em breve.", driver.FindElement(By.XPath("//div[@id='wpcf7-f372-p24-o1']/form/div[2]")).Text);
 
         }

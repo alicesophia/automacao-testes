@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
@@ -19,7 +20,8 @@ namespace SeleniumWebDriver {
                 driver = new FirefoxDriver();
             }
 
-            driver.Manage().Window.Maximize();            
+            driver.Manage().Window.Maximize();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
 
             return driver;
 
@@ -36,6 +38,20 @@ namespace SeleniumWebDriver {
             }
 
             driver.Manage().Window.Maximize();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
+
+            return driver;
+
+        }
+
+        public static IWebDriver GetMobileBrowser(IWebDriver driver, String platform, String deviceName, String browserName, String uri) {
+
+            if (platform.Equals("Android")) {
+                DesiredCapabilities cap = new DesiredCapabilities();
+                cap.SetCapability("deviceName", deviceName);
+                cap.SetCapability("browserName", browserName);
+                driver = new AndroidDriver<IWebElement>(new Uri(uri), cap);
+            }
 
             return driver;
 
