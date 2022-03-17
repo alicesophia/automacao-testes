@@ -21,7 +21,13 @@ namespace ST01Contato {
 
         [SetUp]
         public void SetupTest() {
-            driver = Comandos.GetRemoteBrowser(driver, ConfigurationManager.AppSettings["browser"], "http://localhost:4444/wd/hub");
+            //driver = Comandos.GetRemoteBrowser(driver, ConfigurationManager.AppSettings["browser"], "http://localhost:4444/wd/hub");
+
+            driver = Comandos.GetMobileBrowser(driver, ConfigurationManager.AppSettings["platform"], 
+                                                       ConfigurationManager.AppSettings["deviceName"],
+                                                       ConfigurationManager.AppSettings["browser"],
+                                                       "http://localhost:4723/wd/hub");
+
             baseURL = "https://livros.inoveteste.com.br/";
             verificationErrors = new StringBuilder();
         }

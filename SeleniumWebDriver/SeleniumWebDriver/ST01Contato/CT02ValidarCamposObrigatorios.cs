@@ -19,7 +19,13 @@ namespace ST01Contato {
 
         [SetUp]
         public void SetupTest() {
-            driver = Comandos.GetRemoteBrowser(driver, ConfigurationManager.AppSettings["browser"], "http://localhost:4444/wd/hub");                        
+            //driver = Comandos.GetRemoteBrowser(driver, ConfigurationManager.AppSettings["browser"], "http://localhost:4444/wd/hub");
+
+            driver = Comandos.GetMobileBrowser(driver, ConfigurationManager.AppSettings["platform"],
+                                                       ConfigurationManager.AppSettings["deviceName"],
+                                                       ConfigurationManager.AppSettings["browser"],
+                                                       "http://localhost:4723/wd/hub");
+
             baseURL = "https://livros.inoveteste.com.br/";
             verificationErrors = new StringBuilder();
         }
@@ -35,7 +41,7 @@ namespace ST01Contato {
         }
 
         [Test]
-        public void TheCT02ValidarCamposObrigatoriosTest() {
+        public void TheCT02ValidarCamposObrigatoriosTest() {            
             // Acessa o site
             driver.Navigate().GoToUrl(baseURL + "/contato/");
             // Acessa o menu Contato
@@ -46,7 +52,7 @@ namespace ST01Contato {
             Assert.AreEqual("O campo é obrigatório.", driver.FindElement(By.CssSelector("span.wpcf7-form-control-wrap.your-email > span.wpcf7-not-valid-tip")).Text);
             Assert.AreEqual("O campo é obrigatório.", driver.FindElement(By.CssSelector("span.wpcf7-form-control-wrap.your-subject > span.wpcf7-not-valid-tip")).Text);
             Assert.AreEqual("O campo é obrigatório.", driver.FindElement(By.CssSelector("span.wpcf7-form-control-wrap.your-message > span.wpcf7-not-valid-tip")).Text);
-            Assert.AreEqual("Um ou mais campos possuem um erro. Verifique e tente novamente.", driver.FindElement(By.XPath("//div[@id='wpcf7-f372-p24-o1']/form/div[2]")).Text);
+            Assert.AreEqual("Um ou mais campos possuem um erro. Verifique e tente novamente.", driver.FindElement(By.XPath("//div[@id='wpcf7-f372-p24-o1']/form/div[2]")).Text);            
         }
         private bool IsElementPresent(By by) {
             try {
